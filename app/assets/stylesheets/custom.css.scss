@@ -2,6 +2,7 @@
 
 .search-area { 
     padding-top: 50px;
+    padding-bottom: 10px;
 }
 
 .no-right-padding {
@@ -10,4 +11,8 @@
 
 .no-left-padding {
     padding-left: 0 !important;
+}
+
+.results-block {
+    display: inline-block;
 }
