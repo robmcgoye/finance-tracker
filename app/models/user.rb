@@ -34,21 +34,14 @@ class User < ApplicationRecord
     to_send_back
   end
 
-  def self.first_name_matches(param)
-    matches('first_name', param)
-  end
-
-  def self.last_name_matches(param)
-    matches('last_name', param)
-  end
-
-  def self.email_matches(param)
-    matches('email', param)
-  end
-
-  def self.matches(field_name, param)
-    where("#{field_name} like ?", "%#{param}%")
-  end
+  class << self
+    match_cols = %w(first_name last_name email)
+    match_cols.each do |matched_col|
+      define_method ("#{matched_col}_matches") do |arg|
+        where("#{matched_col} like ?", "%#{arg}%")
+      end
+    end
+  end 
 
   def excpet_current_user(users)
     users.reject { |user| user.id == self.id }
